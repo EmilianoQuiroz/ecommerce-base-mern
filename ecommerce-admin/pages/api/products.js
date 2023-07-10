@@ -5,6 +5,9 @@ export default async function handle(req, res) {
     const {method} = req;
     await mongooseConnect();
 
+    if(method === 'GET'){
+        res.join(await Product.find());
+    }
     
     if(method === 'POST'){
         const {title,description,price} = req.body;
