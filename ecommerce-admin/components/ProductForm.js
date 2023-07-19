@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 
 export default function ProductForm({
+    _id,
     title:existingTitle,
     description:existingDescription,
     price:existingPrice,
@@ -19,12 +20,11 @@ export default function ProductForm({
         if(_id){
             //update
             await axios.put('/api/products', {...data,_id});
-            setGoToProducts(true);
         }else{
             //create
             await axios.post('/api/products', data);
-            setGoToProducts(true);
         }
+        setGoToProducts(true);
     }
     if(goToProducts) {
         router.push('/products');
