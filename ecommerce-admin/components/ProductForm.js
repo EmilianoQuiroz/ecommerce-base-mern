@@ -16,13 +16,19 @@ export default function ProductForm({
     async function createProduct(ev){
         ev.preventDefault();
         const data = {title,description,price};
-        await axios.post('/api/products', data);
-        setGoToProducts(true);
+        if(_id){
+            //update
+            await axios.put('/api/products', {...data,_id});
+            setGoToProducts(true);
+        }else{
+            //create
+            await axios.post('/api/products', data);
+            setGoToProducts(true);
+        }
     }
-    if(goToProducts){
+    if(goToProducts) {
         router.push('/products');
     }
-  
     return (
     <form onSubmit={createProduct}>
         <label>Nombre del producto</label>
